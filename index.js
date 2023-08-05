@@ -17,11 +17,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get("/", function (req, res) {
     res.sendFile(path.join(__dirname , 'public/index.html'));
 });
-app.get("/send-email", function(req,res){
-    alert("Message Sent!");
-    res.sendFile(path.join(__dirname , 'public/index.html'));
 
-})
 app.post("/send-email", function (req, response) {
     var from = req.body.email;
     var name = req.body.fullname;

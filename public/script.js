@@ -53,7 +53,49 @@ ScrollReveal({
 });
 
 
+let success = document.querySelector("#success");
+let failed = document.querySelector("#failed");
 
+var contact = document.querySelector("#contact-form");
+var loading = document.querySelector("#loading");
+const form = document.getElementById('contact-form');
+
+form.addEventListener('submit', async function (event) {
+    event.preventDefault();
+    contact.style.display = 'none';
+    loading.style.display = 'block';
+
+    const formData = new FormData(form);
+    const jsonData = {};
+
+    for (let [key, value] of formData.entries()) {
+        jsonData[key] = value;
+    }
+    try {
+        fetch('/send-email', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(jsonData)
+        })
+            .then(response => response.text())
+            .then(data => {
+                if (data === 'success') {
+                    loading.style.display='none'
+                    success.style.display = 'block';
+                } else {
+                    loading.style.display='none';
+                    failed.style.display = 'block';
+                }
+            })
+    }
+    catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while sending the email');
+    } 
+    
+});
 
 ScrollReveal().reveal('.home-content, .heading', { origin: 'top' });
 ScrollReveal().reveal('.home-image img, .skills-container,.project-box', { origin: 'bottom' });

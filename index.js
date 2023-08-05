@@ -15,11 +15,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 app.get("/", function (req, res) {
-    res.sendFile(__dirname + 'public/index.html');
+    res.sendFile(path.join(__dirname + 'public/index.html'));
 });
 app.get("/send-email", function(req,res){
     alert("Message Sent!");
-    res.sendFile(__dirname + 'public/index.html');
+    res.sendFile(path.join(__dirname + 'public/index.html'));
 
 })
 app.post("/send-email", function (req, response) {
